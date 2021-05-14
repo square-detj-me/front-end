@@ -1,0 +1,15 @@
+---
+version: "2.1"
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+          - ./nginx/nginx.conf:/etc/nginx/nginx.conf #config
+          - ./nginx/logs:/var/log/nginx #logs
+          - ./html:/var/www/html/square #square website files
+          - ./letsencrypt/html:/var/www/html/certbot #http data for renewal via certbot
+          - ./letsencrypt/config/live/square.detj.me/fullchain.pem:/etc/nginx/ssl/live/square.detj.me/fullchain.pem #ssl key
+          - ./letsencrypt/config/live/square.detj.me/privkey.pem:/etc/nginx/ssl/live/square.detj.me/privkey.pem #ssl key
+        ports:
+          - 80:80
+          - 443:443
